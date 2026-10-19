@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Sekolah</title>
+    <script>
+        // Kalau sudah login, langsung ke beranda
+        if (sessionStorage.getItem('sudah_login') === 'true') {
+            window.location.replace('b.html');
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .login-container { background-color: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px; text-align: center; }
+        .login-container h2 { color: #2c3e50; margin-bottom: 10px; }
+        .login-container p { color: #7f8c8d; margin-bottom: 20px; font-size: 14px; }
+        .alert { display: none; background-color: #fee2e2; color: #dc2626; padding: 10px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; border: 1px solid #f87171; }
+        .alert.show { display: block; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 8px; color: #34495e; font-size: 14px; font-weight: 600; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; transition: border-color 0.3s; }
+        .input-group input:focus { border-color: #059669; }
+        .btn-login { width: 100%; padding: 12px; background-color: #059669; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s; }
+        .btn-login:hover { background-color: #047857; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Portal Sekolah</h2>
+        <p>Silakan masuk untuk mengakses Profil Sekolah</p>
+
+        <div class="alert" id="errorBox">Username atau password salah!</div>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username / NIP</label>
+                <input type="text" id="username" placeholder="Masukkan Username atau NIP" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Masukkan Password" required>
+            </div>
+
+            <button type="submit" class="btn-login">Masuk</button>
+        </form>
+    </div>
+
+    <script>
+        // Ganti username, password, dan nama file beranda di sini
+        const USERNAME = 'admin';
+        const PASSWORD = 'sekolah123';
+        const HALAMAN_BERANDA = 'b.html';
+
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value;
+
+            if (u === USERNAME && p === PASSWORD) {
+                sessionStorage.setItem('sudah_login', 'true');
+                sessionStorage.setItem('nama_user', 'Admin Tata Usaha');
+                window.location.href = HALAMAN_BERANDA;
+            } else {
+                document.getElementById('errorBox').classList.add('show');
+            }
+        });
+    </script>
+
+</body>
+</html>
